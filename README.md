@@ -1,25 +1,41 @@
 # CCDV-F Coach
 
-Agente de estudo para o **Claude Certified Developer – Foundations**. Ele roda dentro do Claude Code: abra a pasta e converse.
+App de estudo em Streamlit para o **Claude Certified Developer – Foundations** (53 questões, 120 min, corte 720/1000). Roda 100% local, sem API e sem custo.
+
+## Como rodar
+
+Requer Python 3.10+.
 
 ```bash
-pip install requests beautifulsoup4
-cd ccdv-f-coach && claude
+pip install streamlit
+streamlit run app.py
 ```
 
-| Comando | Faz |
-|---|---|
-| `/coletar` | raspa a doc oficial + sinais do Reddit → `corpus/` indexado por skill |
-| `/gerar auto 10` | subagente escritor cria questões originais nas skills com mais déficit |
-| `/revisar` | subagente revisor (independente) resolve às cegas, confere a fonte, aprova/corrige/rejeita |
-| `/simulado` | 60 questões ponderadas pelo blueprint + timer de 2h em HTML |
-| `/estudar 5 D5.cost` / `/estudar weak` | modo professor, questão a questão ou em lote |
-| `/progresso` | acurácia por skill, evolução, "já dá pra marcar a prova?" |
+Abre em `http://localhost:8501`.
 
-Primeira vez: `/coletar` → `/gerar auto 10` (repita até ~300) → `/simulado`.
+## O que tem
 
-Sem Claude Code, os scripts funcionam sozinhos: `python simulado.py build`, `python tutor.py next --n 5`, `python validate_bank.py`.
+- **Estudar:** uma questão por vez, com filtro por domínio e skill e modo "focar nas fracas". Depois de responder, mostra a explicação em português e o porquê de cada distrator.
+- **Simulado:** prova com timer, navegação entre questões e marcação para revisar. Nota estimada e erros por domínio no final.
+- **Progresso:** acurácia por skill e evolução dos simulados.
+- **Glossário:** inglês técnico que aparece nos enunciados.
 
-**Por que não há "questões que caíram":** o NDA da prova (guia §12–13) proíbe divulgar itens, e quem usa ou espalha dump arrisca ter a credencial revogada. O banco é 100% original e ancorado na doc oficial. O Reddit serve só para saber o que a galera acha difícil.
+## Estrutura
 
-**Estado do banco-semente:** 28 questões (as 3 amostras oficiais + 25 originais em `draft`). Rode `/revisar` primeiro: o validador apontou 16 com a correta mais longa que os distratores, um vício que entrega a resposta.
+```
+app.py              interface Streamlit
+common.py           leitura do banco, blueprint e progresso
+simulado.py         sorteio ponderado das questões do simulado
+tutor.py            priorização de questões (modo "fracas")
+bank/*.jsonl        banco de questões, uma por linha
+data/blueprint.json domínios, skills e pesos
+data/pt/            traduções em português
+data/glossary.json  glossário
+.streamlit/         tema
+```
+
+O histórico fica em `data/progress.json`, criado no primeiro uso e ignorado pelo git.
+
+## Sobre as questões
+
+São originais, não são itens da prova real (protegida por NDA). A "nota escalada estimada" é uma régua linear aproximada; a conversão oficial não é pública.
