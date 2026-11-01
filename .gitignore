@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.venv/
+sessions/
+# progresso pessoal do aluno
+data/progress.json

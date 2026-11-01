@@ -1,0 +1,130 @@
+{
+  "exam": {
+    "name": "Claude Certified Developer – Foundations",
+    "code": "CCDV-F",
+    "guide_version": "1.0 (julho/2026)",
+    "official_items": 53,
+    "official_minutes": 120,
+    "item_formats": ["multiple-choice", "multiple-response (cada item informa quantas respostas selecionar)"],
+    "passing_scaled_score": 720,
+    "scale": [100, 1000],
+    "validity_months": 12
+  },
+  "domains": [
+    {
+      "id": "D1", "name": "Agents and Workflows", "weight": 14.7,
+      "skills": [
+        {"id": "D1.architecture", "name": "Agent Architecture", "weight": 4.5,
+         "topics": ["workflow vs agent (critérios de decisão)", "supervisor/manager hierarchies", "papel dos subagents"],
+         "keywords": ["workflow", "agent architecture", "orchestrator", "subagent", "supervisor", "routing", "prompt chaining", "parallelization", "evaluator-optimizer"]},
+        {"id": "D1.construction", "name": "Agent Construction with Claude", "weight": 5.3,
+         "topics": ["Claude Agent SDK", "custom agent loops/harnesses", "managed agents: self-hosted vs Anthropic-hosted", "hooks para ações determinísticas"],
+         "keywords": ["agent sdk", "agent loop", "harness", "managed agents", "hooks", "tool runner", "stop_reason"]},
+        {"id": "D1.patterns", "name": "Agent Patterns and Frameworks", "weight": 4.9,
+         "topics": ["tool-use loop", "sub-agents", "memory", "gerenciamento de context window", "Strands, LangGraph, PydanticAI"],
+         "keywords": ["tool use loop", "memory tool", "langgraph", "strands", "pydanticai", "multi-step", "context window management"]}
+      ]
+    },
+    {
+      "id": "D2", "name": "Applications and Integration", "weight": 33.1,
+      "skills": [
+        {"id": "D2.requirements", "name": "Understanding Requirements", "weight": 3.4,
+         "topics": ["requisitos funcionais e de infraestrutura a partir de requisitos de negócio e arquitetura"],
+         "keywords": ["requirements", "architecture", "latency requirement", "throughput", "compliance", "data residency"]},
+        {"id": "D2.lifecycle", "name": "Systems Life Cycle", "weight": 2.8,
+         "topics": ["gestão do ciclo de vida de sistemas: desenvolver, implantar, operar, manter"],
+         "keywords": ["deployment", "life cycle", "operate", "maintain", "release", "rollout", "rollback"]},
+        {"id": "D2.api", "name": "Claude API Mechanics", "weight": 6.8,
+         "topics": ["messages", "tools", "streaming", "vision", "thinking", "caching", "terceiros (Bedrock/Vertex)", "Messages API data access", "Batch API", "realtime vs batch"],
+         "keywords": ["messages api", "streaming", "vision", "extended thinking", "prompt caching", "bedrock", "vertex", "batch", "max_tokens", "stop_reason", "files api", "citations"]},
+        {"id": "D2.swe", "name": "Software Engineering Foundations", "weight": 7.4,
+         "topics": ["REST", "JSON", "programação assíncrona", "controle de versão", "SDLC", "code review", "refactoring pequeno/grande porte"],
+         "keywords": ["rest", "json", "async", "retry", "backoff", "rate limit", "idempotent", "git", "refactor", "code review", "429", "529"]},
+        {"id": "D2.appdesign", "name": "Claude Application Design", "weight": 8.6,
+         "topics": ["como Claude interpreta instruções entre interfaces (Claude Code, Desktop, claude.ai, API, SDKs)", "content boundaries", "schema design", "session hygiene", "plugin management"],
+         "keywords": ["system prompt", "schema", "session", "plugin", "content block", "claude.ai", "interfaces", "input schema"]},
+        {"id": "D2.config", "name": "Configuration Management", "weight": 4.1,
+         "topics": ["CLAUDE.md", "settings.json", "model version pinning", "prompt versioning", "dependências de plugin"],
+         "keywords": ["claude.md", "settings.json", "model alias", "snapshot", "pinning", "versioning", "plugin dependencies"]}
+      ]
+    },
+    {
+      "id": "D3", "name": "Claude Code", "weight": 3.1,
+      "skills": [
+        {"id": "D3.operation", "name": "Claude Code Operation", "weight": 3.1,
+         "topics": ["Rules, Skills, Commands, Agents, Agent Memory", "session management", "slash commands built-in/custom", "headless mode", "streaming mode", "auto-mode", "hierarquia de CLAUDE.md", "init de repositório", "settings.json"],
+         "keywords": ["claude code", "slash command", "headless", "-p", "skills", "subagents", "claude.md hierarchy", "settings.json", "permissions", "memory"]}
+      ]
+    },
+    {
+      "id": "D4", "name": "Eval, Testing, and Debugging", "weight": 2.6,
+      "skills": [
+        {"id": "D4.debug", "name": "Debugging and Error Handling", "weight": 2.6,
+         "topics": ["identificar tipo de erro", "estratégia de recuperação", "trace analysis", "isolar origem: camada de integração vs saída do modelo"],
+         "keywords": ["error handling", "trace", "evals", "debug", "failure mode", "error codes", "overloaded", "invalid_request", "retry"]}
+      ]
+    },
+    {
+      "id": "D5", "name": "Model Selection and Optimization", "weight": 16.8,
+      "skills": [
+        {"id": "D5.fundamentals", "name": "LLM Fundamentals", "weight": 5.2,
+         "topics": ["tokens", "context windows", "sampling", "não-determinismo", "next-token generation", "fast mode / extended thinking / adaptive thinking / effort", "zero-shot, single-shot, multi-shot"],
+         "keywords": ["tokens", "context window", "temperature", "top_p", "extended thinking", "adaptive thinking", "effort", "few-shot", "multishot", "sampling"]},
+        {"id": "D5.technical", "name": "Technical Fundamentals", "weight": 6.1,
+         "topics": ["SDKs que encapsulam REST", "websockets", "práticas básicas de engenharia"],
+         "keywords": ["sdk", "websocket", "sse", "server-sent events", "http", "headers", "anthropic-version", "api key"]},
+        {"id": "D5.selection", "name": "Model Selection and Tradeoffs", "weight": 2.7,
+         "topics": ["Opus vs Sonnet vs Haiku", "adaptive thinking support", "qualidade/latência/custo", "breaking changes entre releases"],
+         "keywords": ["opus", "sonnet", "haiku", "model selection", "deprecation", "migrating", "breaking change", "model comparison"]},
+        {"id": "D5.cost", "name": "Cost and Token Management", "weight": 2.8,
+         "topics": ["orçamento de tokens", "tracking de uso", "modelagem de custo", "prompt caching e cache check-pointing"],
+         "keywords": ["token counting", "usage", "cache_control", "cache breakpoint", "cache read", "cache write", "pricing", "ttl", "batch discount"]}
+      ]
+    },
+    {
+      "id": "D6", "name": "Prompt and Context Engineering", "weight": 11.0,
+      "skills": [
+        {"id": "D6.context", "name": "Context Engineering", "weight": 3.8,
+         "topics": ["gestão de context window", "context drift e bloat", "tool output pruning", "compaction", "isolamento via subagents/multi-step"],
+         "keywords": ["context engineering", "compaction", "context editing", "context drift", "context rot", "pruning", "memory", "subagent isolation"]},
+        {"id": "D6.prompt", "name": "Prompt Engineering", "weight": 4.6,
+         "topics": ["clareza de instrução", "few-shot", "system vs user", "output constraints", "placement", "refinamento iterativo", "input sanitization"],
+         "keywords": ["prompt engineering", "system prompt", "xml tags", "few-shot", "prefill", "chain of thought", "role prompting", "be clear and direct"]},
+        {"id": "D6.output", "name": "Output Handling", "weight": 2.6,
+         "topics": ["structured output", "validação de resposta", "defensive parsing", "ceticismo com saída confiante"],
+         "keywords": ["structured output", "json mode", "tool use for json", "validation", "pydantic", "parsing", "hallucination", "consistency"]}
+      ]
+    },
+    {
+      "id": "D7", "name": "Security and Safety", "weight": 8.1,
+      "skills": [
+        {"id": "D7.appsec", "name": "AI Application Security", "weight": 3.2,
+         "topics": ["prompt injection", "jailbreak defense", "untrusted input", "data leakage", "PII", "authn/authz/confidentiality/integrity"],
+         "keywords": ["prompt injection", "jailbreak", "untrusted", "pii", "data leakage", "mitigate", "least privilege", "sandbox"]},
+        {"id": "D7.guardrails", "name": "Guardrails and Safe Deployment", "weight": 2.3,
+         "topics": ["content policy", "guardrail layering", "secure-by-design", "IAM", "least privilege"],
+         "keywords": ["guardrails", "moderation", "defense in depth", "secure by design", "iam", "least privilege", "content filter"]},
+        {"id": "D7.hooks", "name": "Claude Hooks", "weight": 1.0,
+         "topics": ["hooks como guardrails para evitar ações destrutivas"],
+         "keywords": ["hooks", "pretooluse", "posttooluse", "exit code 2", "block", "permission"]},
+        {"id": "D7.secrets", "name": "Identity, Secrets, and Key Management", "weight": 1.6,
+         "topics": ["segredos/chaves de API em dev e prod", "autenticação", "níveis de acesso", "monitoramento de acesso"],
+         "keywords": ["api key", "secrets manager", "environment variable", "rotation", "workspace", "key management", "authentication"]}
+      ]
+    },
+    {
+      "id": "D8", "name": "Tools and MCPs", "weight": 10.6,
+      "skills": [
+        {"id": "D8.tools", "name": "Tool Implementation", "weight": 4.4,
+         "topics": ["tool use/function calling", "descrições de tool", "tratamento de erro", "client-side vs server-side tools", "approval patterns", "montagem do conjunto de tools"],
+         "keywords": ["tool use", "function calling", "tool description", "input_schema", "tool_result", "is_error", "server tools", "client tools", "tool_choice", "parallel tool use"]},
+        {"id": "D8.mcp", "name": "MCP Server Development", "weight": 2.1,
+         "topics": ["authoring/deploy de servidor MCP", "resources, tools, prompts", "stdio vs sockets/HTTP", "client vs server"],
+         "keywords": ["mcp", "model context protocol", "stdio", "streamable http", "mcp server", "resources", "prompts", "fastmcp"]},
+        {"id": "D8.customization", "name": "Agentic Customization", "weight": 4.1,
+         "topics": ["tradeoffs: built-in tools vs custom tools vs Skills vs MCPs"],
+         "keywords": ["skills", "agent skills", "mcp vs", "custom tools", "built-in tools", "progressive disclosure", "when to use"]}
+      ]
+    }
+  ]
+}

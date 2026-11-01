@@ -1,0 +1,26 @@
+{
+"Q-D8.mcp-001": {"stem": "Um time precisa que o Claude chame um serviço interno de inventário exposto como uma API REST. Eles querem que a capacidade seja reutilizável por várias aplicações Claude e mantida de forma independente de qualquer app. Qual abordagem se encaixa melhor?",
+ "o": {"A": "Codificar a lógica do inventário diretamente no system prompt de cada aplicação.", "B": "Construir um MCP server que exponha as operações de inventário como tools, para várias aplicações Claude se conectarem a ele.", "C": "Colar os dados atuais do inventário na context window a cada requisição.", "D": "Contar com uma built-in tool, já que built-in tools alcançam qualquer API REST interna."},
+ "r": "Um MCP server expõe tools reutilizáveis que várias aplicações Claude podem compartilhar e que podem ser mantidas de forma independente.",
+ "w": {"A": "Lógica em um prompt não é acesso executável nem é fácil de manter entre apps.", "C": "Colar dados não dá acesso ao vivo e desperdiça contexto a cada chamada.", "D": "Built-in tools não alcançam automaticamente APIs internas arbitrárias."}},
+
+"Q-D8.tools-001": {"stem": "O Claude continua chamando sua tool search_orders com o formato de data errado e, ocasionalmente, a chama quando o usuário pergunta sobre faturas (invoices). Qual é a correção mais eficaz?",
+ "o": {"A": "Uma description detalhada (propósito, quando usar e quando não usar, formatos dos parâmetros) mais um input_schema mais rígido.", "B": "Renomear a tool para SEARCH_ORDERS_IMPORTANT para o Claude priorizá-la corretamente.", "C": "Remover o input_schema para o Claude enviar datas no formato que preferir.", "D": "Aumentar max_tokens para o Claude ter mais espaço para raciocinar sobre qual tool chamar."},
+ "r": "Descriptions e schemas de tools são o principal guia do modelo sobre quando e como chamar uma tool; descriptions detalhadas, com formatos e limites explícitos, reduzem o uso indevido.",
+ "w": {"B": "Letras maiúsculas não comunicam propósito nem formato.", "C": "Remover o schema torna erros de formatação mais prováveis.", "D": "O orçamento de saída não é a causa de argumentos errados."}},
+
+"Q-D8.tools-002": {"stem": "A chamada da sua tool a uma API externa falha com timeout durante um agent loop. Como o erro deve ser devolvido ao Claude?",
+ "o": {"A": "Pular o tool_result e iniciar uma nova conversa com o mesmo pedido do usuário.", "B": "Devolver um tool_result para aquele tool_use_id com is_error: true e uma mensagem de erro clara.", "C": "Devolver um tool_result vazio, sem flag de erro, para o loop poder continuar.", "D": "Adicionar o texto do erro ao system prompt e chamar o modelo de novo sem um resultado."},
+ "r": "Todo tool_use precisa de um tool_result correspondente. Marcá-lo com is_error e uma mensagem clara permite ao Claude raciocinar sobre a falha em vez de agir sobre dados falsos.",
+ "w": {"A": "Descartar o turno perde todo o contexto e a chamada de tool pendente.", "C": "Um sucesso vazio induz o modelo a achar que a chamada funcionou.", "D": "System prompts não são o canal para resultados de tools."}},
+
+"Q-D8.mcp-002": {"stem": "Você está empacotando um MCP server que um desenvolvedor vai rodar localmente como subprocess do seu cliente desktop. Qual transport se encaixa melhor?",
+ "o": {"A": "stdio entre o cliente e o processo local do server", "B": "Streamable HTTP atrás de um load balancer público", "C": "Uma fila de mensagens baseada em e-mail entre cliente e server", "D": "Uma tabela de banco de dados compartilhada consultada a cada minuto"},
+ "r": "stdio é o transport padrão quando o cliente inicia o server como um processo local; transports baseados em HTTP servem a servers remotos ou compartilhados.",
+ "w": {"B": "Válido para servers remotos, mas é sobrecarga desnecessária para um subprocess local.", "C": "Não é um transport do MCP.", "D": "Não é um transport do MCP e é lento demais."}},
+
+"Q-D8.customization-001": {"stem": "Seu time pede repetidamente ao Claude relatórios trimestrais seguindo um procedimento interno específico, com templates e um script auxiliar. Nenhum acesso a sistemas externos é necessário. Qual customização se encaixa melhor?",
+ "o": {"A": "Uma Skill empacotando as instruções, templates e o script, carregada quando relevante.", "B": "Um novo MCP server expondo o procedimento como um serviço remoto.", "C": "Colar o procedimento completo e os templates em toda conversa.", "D": "Fazer fine-tuning de um modelo customizado em relatórios trimestrais anteriores."},
+ "r": "Skills empacotam conhecimento procedural e recursos que o Claude carrega sob demanda (progressive disclosure). O MCP brilha quando o Claude precisa de acesso ao vivo a sistemas externos.",
+ "w": {"B": "O MCP acrescenta um serviço para manter sem precisar de acesso externo.", "C": "Desperdiça contexto e diverge entre as cópias.", "D": "Pesado, lento e desnecessário para um procedimento documentado."}}
+}

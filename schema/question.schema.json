@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CCDV-F question",
+  "description": "Uma questão por linha em bank/*.jsonl. A letra das opções é embaralhada na montagem do simulado, então NENHUM texto (stem, rationale, why_wrong) pode referenciar letras.",
+  "type": "object",
+  "required": ["id", "domain", "skill", "type", "select", "stem", "options", "correct", "rationale", "why_wrong", "difficulty", "source", "status"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^Q-[A-Z0-9.]+-[0-9]{3,}$", "description": "ex: Q-D2.api-014"},
+    "domain": {"type": "string", "enum": ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8"]},
+    "skill": {"type": "string", "description": "id de skill do blueprint.json, ex: D2.api"},
+    "type": {"enum": ["single", "multi"]},
+    "select": {"type": "integer", "minimum": 1, "maximum": 4, "description": "quantas respostas o item pede; 1 para single"},
+    "stem": {"type": "string", "description": "cenário + pergunta, estilo da prova (situacional, 'qual abordagem melhor atende')"},
+    "options": {
+      "type": "array", "minItems": 4, "maxItems": 6,
+      "items": {
+        "type": "object", "required": ["id", "text"],
+        "properties": {"id": {"type": "string", "pattern": "^[A-F]$"}, "text": {"type": "string"}}
+      }
+    },
+    "correct": {"type": "array", "items": {"type": "string", "pattern": "^[A-F]$"}, "minItems": 1},
+    "rationale": {"type": "string", "description": "por que a(s) correta(s) está(ão) certa(s); sem letras"},
+    "why_wrong": {"type": "object", "description": "id da opção errada -> por que é um distrator plausível porém errado", "additionalProperties": {"type": "string"}},
+    "concept_tags": {"type": "array", "items": {"type": "string"}},
+    "difficulty": {"enum": [1, 2, 3], "description": "1 = recordar, 2 = aplicar, 3 = decidir entre tradeoffs"},
+    "source": {
+      "type": "object", "required": ["kind"],
+      "properties": {
+        "kind": {"enum": ["official_docs", "official_blog", "exam_guide_sample", "community_signal", "original"]},
+        "url": {"type": "string"},
+        "excerpt": {"type": "string", "description": "trecho curto (<25 palavras) que ancora o gabarito"},
+        "retrieved": {"type": "string", "description": "YYYY-MM-DD"}
+      }
+    },
+    "status": {"enum": ["draft", "reviewed", "retired"], "description": "reviewed = passou pelo question-reviewer com gabarito confirmado contra o corpus"}
+  }
+}
